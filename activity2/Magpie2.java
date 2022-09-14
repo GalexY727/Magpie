@@ -133,7 +133,7 @@ public class Magpie2
 		}
 		else if (statement.contains("python"))
 		{
-			response = "I like python.";
+			response = "I don't like python.";
 		}
 		else if (statement.contains("java"))
 		{
