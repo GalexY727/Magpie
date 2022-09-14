@@ -30,26 +30,76 @@ public class Magpie2
 	 *            the user statement
 	 * @return a response based on the rules given
 	 */
+
+	public int findKeyword(String statement, String goal,
+						   int startPos)
+	{
+		String phrase = statement.trim();
+		// The only change to incorporate the startPos is in
+		// the line below
+		int psn = phrase.toLowerCase().indexOf(
+				goal.toLowerCase(), startPos);
+
+		// Refinement--make sure the goal isn't part of a
+		// word
+		while (psn >= 0)
+		{
+			// Find the string of length 1 before and after
+			// the word
+			String before = " ", after = " ";
+			if (psn > 0)
+			{
+				before = phrase.substring(psn - 1, psn)
+						.toLowerCase();
+			}
+			if (psn + goal.length() < phrase.length())
+			{
+				after = phrase.substring(
+								psn + goal.length(),
+								psn + goal.length() + 1)
+						.toLowerCase();
+			}
+
+			// If before and after aren't letters, we've
+			// found the word
+			if (((before.compareTo("a") >= 0 < 0) || (before
+					.compareTo("z") >= 0 > 0)) // before is not a
+					// letter
+					&& ((after.compareTo("a") >= 0 < 0) || (after
+					.compareTo("z") >= 0 > 0)))
+			{
+				return psn;
+			}
+
+			// The last position didn't work, so let's find
+			// the next, if there is one.
+			psn = phrase.indexOf(goal.toLowerCase(),
+					psn + 1);
+
+		}
+
+		return -1;
+	}
 	public String getResponse(String statement)
 	{
 		String response = "";
-		if (statement.contains("no"))
+		if (findKeyword(statement, "no") >= 0)
 		{
 			response = "Why so negative?";
 		}
-		else if (statement.contains("mother")
-				|| statement.contains("father")
-				|| statement.contains("sister")
-				|| statement.contains("brother"))
+		else if (findKeyword(statement, "mother") >= 0
+				|| findKeyword(statement, "father") >= 0
+				|| findKeyword(statement, "sister") >= 0
+				|| findKeyword(statement, "brother") >= 0)
 		{
 			response = "Tell me more about your family.";
 		}
-		else if (statement.contains("Mr."))
+		else if (findKeyword(statement, "Mr.") >= 0)
 		{
 			response = "Mr. Jaffe is a the best teacher, I agree.";
 		}
-		else if (statement.contains("dog")
-				|| statement.contains("cat"))
+		else if (findKeyword(statement, "dog") >= 0
+				|| findKeyword(statement, "cat") >= 0)
 		{
 			response = "Tell me more about your pets.";
 		}
@@ -58,160 +108,160 @@ public class Magpie2
 		{
 			response = "Say something, please.";
 		}
-		else if (statement.contains("school"))
+		else if (findKeyword(statement, "school") >= 0)
 		{
 			response = "School is fun.";
 		}
-		else if (statement.contains("food"))
+		else if (findKeyword(statement, "food") >= 0)
 		{
 			response = "I like food.";
 		}
-		else if (statement.contains("weather"))
+		else if (findKeyword(statement, "weather") >= 0)
 		{
 			response = "The weather is nice.";
 		}
-		else if (statement.contains("sports"))
+		else if (findKeyword(statement, "sports") >= 0)
 		{
 			response = "I like sports.";
 		}
-		else if (statement.contains("music"))
+		else if (findKeyword(statement, "music") >= 0)
 		{
 			response = "I love music, have you listened to Data Loss by JKuch?";
 		}
 		//import spotify cli and get all songs from a user's liked library
-		else if (statement.contains("spotify"))
+		else if (findKeyword(statement, "spotify") >= 0)
 		{
 			response = "I like spotify.";
 		}
-		else if (statement.contains("computer"))
+		else if (findKeyword(statement, "computer") >= 0)
 		{
 			response = "I like computers.";
 		}
-		else if (statement.contains("game"))
+		else if (findKeyword(statement, "game") >= 0)
 		{
 			response = "I like games.";
 		}
-		else if (statement.contains("movie"))
+		else if (findKeyword(statement, "movie") >= 0)
 		{
 			response = "I like movies.";
 		}
-		else if (statement.contains("tv"))
+		else if (findKeyword(statement, "tv") >= 0)
 		{
 			response = "I like tv.";
 		}
-		else if (statement.contains("book"))
+		else if (findKeyword(statement, "book") >= 0)
 		{
 			response = "I like books.";
 		}
-		else if (statement.contains("art"))
+		else if (findKeyword(statement, "art") >= 0)
 		{
 			response = "I like art.";
 		}
-		else if (statement.contains("science"))
+		else if (findKeyword(statement, "science") >= 0)
 		{
 			response = "I like science.";
 		}
-		else if (statement.contains("math"))
+		else if (findKeyword(statement, "math") >= 0)
 		{
 			response = "I like math.";
 		}
-		else if (statement.contains("history"))
+		else if (findKeyword(statement, "history") >= 0)
 		{
 			response = "I like history.";
 		}
-		else if (statement.contains("english"))
+		else if (findKeyword(statement, "english") >= 0)
 		{
 			response = "I like english.";
 		}
-		else if (statement.contains("programming"))
+		else if (findKeyword(statement, "programming") >= 0)
 		{
 			response = "I like programming.";
 		}
-		else if (statement.contains("coding"))
+		else if (findKeyword(statement, "coding") >= 0)
 		{
 			response = "I like coding.";
 		}
-		else if (statement.contains("python"))
+		else if (findKeyword(statement, "python") >= 0)
 		{
 			response = "I don't like python.";
 		}
-		else if (statement.contains("java"))
+		else if (findKeyword(statement, "java") >= 0)
 		{
 			response = "I like java.";
 		}
-		else if (statement.contains("c++"))
+		else if (findKeyword(statement, "c++") >= 0)
 		{
 			response = "I like c++.";
 		}
-		else if (statement.contains("c"))
+		else if (findKeyword(statement, "c") >= 0)
 		{
 			response = "I like c.";
 		}
-		else if (statement.contains("javascript"))
+		else if (findKeyword(statement, "javascript") >= 0)
 		{
 			response = "I like javascript.";
 		}
-		else if (statement.contains("html"))
+		else if (findKeyword(statement, "html") >= 0)
 		{
 			response = "I like html.";
 		}
-		else if (statement.contains("css"))
+		else if (findKeyword(statement, "css") >= 0)
 		{
 			response = "I like css.";
 		}
-		else if (statement.contains("sql"))
+		else if (findKeyword(statement, "sql") >= 0)
 		{
 			response = "I like sql.";
 		}
-		else if (statement.contains("kotlin"))
+		else if (findKeyword(statement, "kotlin") >= 0)
 		{
 			response = "I like kotlin.";
 		}
-		else if (statement.contains("video games"))
+		else if (findKeyword(statement, "video games") >= 0)
 		{
 			response = "I like video games.";
 		}
-		else if (statement.contains("movies"))
+		else if (findKeyword(statement, "movies") >= 0)
 		{
 			response = "I like movies.";
 		}
-		else if (statement.contains("television"))
+		else if (findKeyword(statement, "television") >= 0)
 		{
 			response = "I like television.";
 		}
-		else if (statement.contains("books"))
+		else if (findKeyword(statement, "books") >= 0)
 		{
 			response = "I like books.";
 		}
-		else if (statement.contains("hobbies"))
+		else if (findKeyword(statement, "hobbies") >= 0)
 		{
 			response = "I like building robots, and ice skating with my friends.";
 		}
-		else if (statement.contains("friends"))
+		else if (findKeyword(statement, "friends") >= 0)
 		{
 			response = "I like friends... to bad they are all digital";
 		}
-		else if (statement.contains("family"))
+		else if (findKeyword(statement, "family") >= 0)
 		{
 			response = "I dont have much of a family... but thats okay.";
 		}
-		else if (statement.contains("hate"))
+		else if (findKeyword(statement, "hate") >= 0)
 		{
 			response = "Why do you hate that?";
 		}
-		else if (statement.contains("like"))
+		else if (findKeyword(statement, "like") >= 0)
 		{
 			response = "Why do you like that?";
 		}
-		else if (statement.contains("love"))
+		else if (findKeyword(statement, "love") >= 0)
 		{
 			response = "Why do you love that?";
 		}
-		else if (statement.contains("dont like") || statement.contains("dislike"))
+		else if (findKeyword(statement, "dont like") >= 0 || findKeyword(statement, "dislike") >= 0)
 		{
 			response = "Why do you dislike that?";
 		}
-		else if (statement.contains("I want"))
+		else if (findKeyword(statement, "I want") >= 0)
 		{
 			response = "What would it mean to you if you got that?";
 		}

@@ -1,3 +1,5 @@
+package activity3;
+
 /**
  * A program to carry on conversations with a human user.
  * This version: 
@@ -68,7 +70,7 @@ public class Magpie3
 	 * @return the index of the first occurrence of goal in
 	 *         statement or -1 if it's not found
 	 */
-	private int findKeyword(String statement, String goal,
+	public int findKeyword(String statement, String goal,
 			int startPos)
 	{
 		String phrase = statement.trim();
