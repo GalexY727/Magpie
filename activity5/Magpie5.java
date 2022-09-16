@@ -39,6 +39,10 @@ public class Magpie5
 		{
 			response = "Say something, please.";
 		}
+		else if (findKeyword(statement, "hello") >= 0)
+		{
+			response = "Hi :)";
+		}
 
 		else if (findKeyword(statement, "no") >= 0)
 		{
@@ -263,10 +267,15 @@ public class Magpie5
 		return randomResponses [r.nextInt(randomResponses.length)];
 	}
 	
-	private String [] randomResponses = {"Interesting, tell me more",
+	private final String [] randomResponses = {"Interesting, tell me more",
 			"Hmmm.",
 			"Do you really think so?",
-			"You don't say."
+			"You don't say.",
+			"Wow, that's cool.",
+			"I really like the idea of that.",
+			"I haven't heard of that before.",
+			"Really?",
+			"I think I could say the same."
 	};
 	
 }
